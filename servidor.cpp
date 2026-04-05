@@ -29,13 +29,13 @@ if(fd < 0){
 }
 
 char buffer[100];
-Registro* reg = new Registro;
 while(true){
 
     int n = read(fd, buffer, sizeof(buffer)-1);
     buffer[n] = '\0';
     cout<<"Recebido: "<<buffer<<endl;
 
+    Registro* reg = new Registro;
     stringstream ss(buffer);
     ss >> operacao >> id >> nome;
     reg->id = id;
@@ -58,10 +58,11 @@ while(true){
         pthread_detach(thread);
     }else if(operacao == "EXIT"){
         cout<<"Saindo..."<<endl;
+        delete reg;
         break;
     }else{
-        cout<<"Operação inválida!"<<endl;
-        break;
+        cout<<"Operacao invalida!"<<endl;
+        delete reg;
     }
 
 }

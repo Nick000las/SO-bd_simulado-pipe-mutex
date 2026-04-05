@@ -47,6 +47,7 @@ void* select_func(void* arg){
             cout<<"Encontrado: "<<id<<" "<<nome<<endl;
             file.close();
             pthread_mutex_unlock(&mutex_banco);
+            delete reg;
             return NULL;
         }
     }
@@ -119,7 +120,7 @@ void* delete_func(void* arg){
     Registro r;
     bool encontrado = false;
     while(file >> r.id >> r.nome){
-        if(r->id != reg->id){
+        if(r.id != reg->id){
             dados.push_back(r);
         }else{
             encontrado = true;
